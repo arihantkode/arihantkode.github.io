@@ -17,7 +17,7 @@ const INFO = {
 	homepage: {
 		title: "Arihant",
 		description:
-			"this is some description about me.",
+			"Hello there! welcome to my little space on this web.\nHead over to about me page to know a bit more about me. Namaste!",
 	},
 
 	about: {
