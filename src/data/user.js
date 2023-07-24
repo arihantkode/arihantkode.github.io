@@ -22,7 +22,7 @@ const INFO = {
 	about: {
 		title: "I'm Arihant",
 		description:
-			"this is some description about me.",
+			"Hey there! seems like you are interested inknowing me. I am a software engineer by the day, a musician by the evening and a philosopher by the night. On weekends, I tend to my terrace garden and maybe go to the mountains.",
 	},
 
 	articles: {
