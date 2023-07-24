@@ -1,7 +1,7 @@
 const INFO = {
 	main: {
 		title: "Arihant Kochhar",
-		name: "Arihant K",
+		name: "Arihant Kochhar",
 		email: "arihant8kochhar@gmail.com",
 		logo: "../../fotor-ai.jpg",
 	},
@@ -16,7 +16,7 @@ const INFO = {
 
 	homepage: {
 		title: "Arihant",
-		description: "Hello there! welcome to my little space on this web.\nHead over to about me page to know a bit more about me. Namaste!",
+		description: "Hello there! welcome to my little space on this web. Head over to about me page to know a bit more about me. Namaste!",
 	},
 
 	about: {
