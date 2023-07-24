@@ -5,7 +5,7 @@
 	"author": {
 		"name": "Arihant Kochhar",
 		"email": "arihant8kochhar@gmail.com",
-		"url": "https://arihantkode.github.io"
+		"url": "https://arihantkode.github.io/"
 	},
 	"license": "MIT",
 	"private": true,
@@ -28,6 +28,8 @@
 		"web-vitals": "^2.1.4"
 	},
 	"scripts": {
+		"predeploy": "npm run build",
+ 	    "deploy": "gh-pages -d build",
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
