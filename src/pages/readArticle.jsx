@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import NavBar from "../components/common/navBar";
 import INFO from "../data/user";
 import SEO from "../data/seo";
+import Footer from "../components/common/footer";
 
 const currentSEO = SEO.find((item) => item.page === "articles");
 
@@ -71,6 +72,9 @@ const Blog = () => {
 									</Card>
 								</div>))}
 						</div>
+					</div>
+					<div className="page-footer">
+						<Footer />
 					</div>
 				</div>
 			</div>
