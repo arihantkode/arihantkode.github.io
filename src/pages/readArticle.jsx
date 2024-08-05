@@ -1,84 +1,83 @@
-import React, { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import styled from "styled-components";
-
-import NavBar from "../components/common/navBar";
-import Footer from "../components/common/footer";
-import Logo from "../components/common/logo";
-
-import INFO from "../data/user";
-import myArticles from "../data/articles";
+import axios from "axios";
 
 import "./styles/readArticle.css";
+import { Card } from "@mui/material";
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import NavBar from "../components/common/navBar";
+import INFO from "../data/user";
+import SEO from "../data/seo";
 
-let ArticleStyle = styled.div``;
+const currentSEO = SEO.find((item) => item.page === "articles");
 
-const ReadArticle = () => {
-	const navigate = useNavigate();
-	let { slug } = useParams();
-
-	const article = myArticles[slug - 1];
-
+const Blog = () => {
+	const [posts, setPosts] = useState([]);
+	const [title, setTitle] = useState("");
+	const getPostData = () => {
+	  axios
+		.get("https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@arihantk.ind")
+		.then((res) => {
+		  console.log("got result : ", res);
+		  setPosts(res.data.items);
+		  setTitle(res.data.feed.description);
+		  console.log(posts);
+		})
+		.catch((error) => {
+		  console.error("Error fetching blog posts:", error);
+		});
+	};
 	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, [article]);
-
-	ArticleStyle = styled.div`
-		${article().style}
-	`;
-
+	  getPostData();
+	}, []);
 	return (
+	  <div>
 		<React.Fragment>
 			<Helmet>
-				<title>{`${article().title} | ${INFO.main.title}`}</title>
-				<meta name="description" content={article().description} />
-				<meta name="keywords" content={article().keywords.join(", ")} />
+				<title>{INFO.main.title}</title>
+				<meta name="description" content={currentSEO.description} />
+				<meta
+					name="keywords"
+					content={currentSEO.keywords.join(", ")}
+				/>
 			</Helmet>
-
 			<div className="page-content">
-				<NavBar />
-
+				<NavBar active="home" />
 				<div className="content-wrapper">
-					<div className="read-article-logo-container">
-						<div className="read-article-logo">
-							<Logo width={46} />
+					<div className="articles-main-container">
+						<div className="articles-logo-container">
+							<Typography gutterBottom variant="h4" component="div">
+								{title}
+							</Typography>
 						</div>
-					</div>
-
-					<div className="read-article-container">
-						<div className="read-article-back">
-							<img
-								src="../back-button.png"
-								alt="back"
-								className="read-article-back-button"
-								onClick={() => navigate(-1)}
-							/>
+						<div className="articles-container">
+							{posts.map((post) => (
+								<div className="articles-article">
+									<Card>
+										<CardContent>
+											<Typography gutterBottom variant="h5" component="div">
+												{post.title}
+											</Typography>
+											<Typography variant="body2" color="text.secondary">
+												{post.content.substring(0, 140).replace(/(<([^>]+)>)/ig, '')}...
+											</Typography>
+										</CardContent>
+										<CardActions>
+											<Button size="small" href={post.link}>Read More on Medium</Button>
+										</CardActions>
+									</Card>
+								</div>))}
 						</div>
-
-						<div className="read-article-wrapper">
-							<div className="read-article-date-container">
-								<div className="read-article-date">
-									{article().date}
-								</div>
-							</div>
-
-							<div className="title read-article-title">
-								{article().title}
-							</div>
-
-							<div className="read-article-body">
-								<ArticleStyle>{article().body}</ArticleStyle>
-							</div>
-						</div>
-					</div>
-					<div className="page-footer">
-						<Footer />
 					</div>
 				</div>
 			</div>
 		</React.Fragment>
+	  </div>
 	);
-};
-
-export default ReadArticle;
+  };
+ 
+  export default Blog;
+  
